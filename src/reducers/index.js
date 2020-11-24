@@ -1,8 +1,12 @@
-import {combineReducers} from 'redux'
-import counterReducer from './counter'
-import loggedReducer from './isLogged'
+import {combineReducers} from "redux"
+import detailsReducer from "./detailsReducer"
+import gamesReducer from './gamesReducer'
 
-export  const allReducers = combineReducers({
-    counter : counterReducer,
-    isLogged : loggedReducer
+
+
+const rootReducer = combineReducers({
+    games:gamesReducer,
+    details :detailsReducer
 })
+
+export default rootReducer

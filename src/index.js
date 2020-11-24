@@ -1,24 +1,37 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-import {createStore} from 'redux'
-import { allReducers } from './reducers';
+import {createStore , applyMiddleware, compose} from 'redux';
+import rootReducer from './reducers';
 import { Provider } from 'react-redux';
+import thunk from 'redux-thunk';
+import { BrowserRouter } from 'react-router-dom';
 
 
 
-//Store = that actually holds our state
-const store = createStore(allReducers , window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
-//Actions = pure javascript function that returns objects which indicate the reducers to carry out their  funcitons
-//Reducers = javascript function that holds the logic for carrying out state updates
+const composeEnchancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+const store = createStore(
+  rootReducer,
+  composeEnchancer(applyMiddleware(thunk))
+);
+
+
 
 
 
 ReactDOM.render(
 
-    <Provider store={store}>
-         <App/>
-    </Provider>
+<Provider store={store}>
+
+<BrowserRouter>
+<App/>
+</BrowserRouter>
+
+
+
+</Provider>
+
            ,
 
     document.getElementById('root')
